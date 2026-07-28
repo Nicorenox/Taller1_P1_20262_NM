@@ -1,27 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<div class="container">
-    <form action="">
-        <div class="mb-3">
-            <label for="searchMovie" class="form-label">
-                Search for Movie:
-            </label>
-            <input type="text" class="form-control" name="searchMovie">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Reviews</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f4f6f9;
+        }
+
+        .movie-card{
+            transition:.2s;
+            height:100%;
+        }
+
+        .movie-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+        }
+
+        .movie-image{
+            height:350px;
+            object-fit:cover;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="display-4">
+            🎬 Movie Reviews
+        </h1>
+
+        <p class="lead">
+            Welcome {{ name }}
+        </p>
+
+    </div>
+
+    <form method="GET" class="row justify-content-center mb-5">
+
+        <div class="col-md-6">
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search movie..."
+                    name="searchMovie"
+                    value="{{ searchTerm|default:'' }}">
+
+                <button class="btn btn-primary">
+                    Search
+                </button>
+
+            </div>
+
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
+
     </form>
- 
-    <p>Searching for {{ searchTerm }}</p>
-    {% for movie in movies %}
-        <h2>{{ movie.title }}</h2>
-        <h3>{{ movie.description }}</h3>
-        <img src="{{ movie.image.url }}">
-        {% if movie.url %}
-            <a href="{{ movie.url }}"> Movie Link </a>
-        {% endif %}
-    {% endfor %}
-    <br/>
+
+    <div class="row g-4">
+
+        {% for movie in movies %}
+
+        <div class="col-md-4">
+
+            <div class="card movie-card">
+
+                <img
+                    src="{{ movie.image.url }}"
+                    class="card-img-top movie-image">
+
+                <div class="card-body">
+
+                    <h4 class="card-title">
+                        {{ movie.title }}
+                    </h4>
+
+                    <p class="card-text">
+                        {{ movie.description }}
+                    </p>
+
+                    {% if movie.url %}
+                    <a href="{{ movie.url }}"
+                       target="_blank"
+                       class="btn btn-success">
+                        View Movie
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-warning text-center">
+
+                No movies found.
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
