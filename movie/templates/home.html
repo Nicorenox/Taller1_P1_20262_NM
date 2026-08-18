@@ -92,6 +92,12 @@
                         {{ movie.description }}
                     </p>
 
+                    <p class="text-muted mb-2">
+                        <strong>Genero:</strong> {{ movie.genre }}
+                        <br>
+                        <strong>Año:</strong> {{ movie.year }}
+                    </p>
+
                     {% if movie.url %}
                     <a href="{{ movie.url }}"
                        target="_blank"
