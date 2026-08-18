@@ -28,6 +28,10 @@ def about(request):
     #return HttpResponse("This is the About Page")
     return render(request, "about.html")
 
+def signup(request):
+    email = request.GET.get('email')
+    return render(request, 'signup.html', {'email': email})
+
 def statistics_view(request):
     matplotlib.use('Agg')
 
@@ -82,3 +86,5 @@ def statistics_view(request):
         'graphic': graphic_year,
         'graphic_genre': graphic_genre,
     })
+    
+    
